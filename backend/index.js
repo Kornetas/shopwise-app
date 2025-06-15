@@ -10,6 +10,10 @@ const app = express();
 const connectDB = require("./config/db");
 connectDB();
 
+// Import user routes
+const userRoutes = require("./routes/users");
+app.use("/api/users", userRoutes);
+
 // Simple healhcheck endpoint for testing the server
 
 app.get("/api/health", (req, res) => {
