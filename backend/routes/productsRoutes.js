@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const getAllProducts = require("../controllers/products/getAllProducts");
-const createProduct = require("../controllers/products/createProduct");
-const getProductById = require("../controllers/products/getProductById");
-const updateProductById = require("../controllers/products/updateProductById");
-const deleteProductById = require("../controllers/products/deleteProductById");
-const addReview = require("../controllers/products/addReview");
+
+// admin
+const createProduct = require("../controllers/products/admin/createProduct");
+const updateProductById = require("../controllers/products/admin/updateProductById");
+const deleteProductById = require("../controllers/products/admin/deleteProductById");
+
+// user
+const getAllProducts = require("../controllers/products/user/getAllProducts");
+const getProductById = require("../controllers/products/user/getProductById");
+const addReview = require("../controllers/products/user/addReview");
 
 const auth = require("../middleware/auth");
 const isAdmin = require("../middleware/isAdmin");

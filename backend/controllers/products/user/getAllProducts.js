@@ -1,6 +1,6 @@
 // Handles GET /api/products – return all products
 
-const Product = require("../../models/Product");
+const Product = require("../../../models/Product");
 
 module.exports = async (req, res) => {
   try {

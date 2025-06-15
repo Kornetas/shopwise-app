@@ -1,6 +1,6 @@
 // Handles POST /api/products/:id/reviews – add review for product (auth required)
 
-const Product = require("../../models/Product");
+const Product = require("../../../models/Product");
 
 module.exports = async (req, res) => {
   try {

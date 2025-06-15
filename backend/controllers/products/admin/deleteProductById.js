@@ -1,6 +1,6 @@
 // Handles DELETE /api/products/:id – delete product by ID (admin only)
 
-const Product = require("../../models/Product");
+const Product = require("../../../models/Product");
 
 module.exports = async (req, res) => {
   try {

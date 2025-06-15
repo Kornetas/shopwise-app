@@ -1,6 +1,6 @@
 // Handles GET /api/products/:id – get product by ID
 
-const Product = require("../../models/Product");
+const Product = require("../../../models/Product");
 
 module.exports = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 // Handles POST /api/products – create a new product (admin only)
 
-const Product = require("../../models/Product");
+const Product = require("../../../models/Product");
 
 module.exports = async (req, res) => {
   try {
