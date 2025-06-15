@@ -14,7 +14,7 @@ const connectDB = require("./config/db");
 connectDB();
 
 // Import user routes
-const userRoutes = require("./routes/users");
+const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes);
 
 // Simple healhcheck endpoint for testing the server
