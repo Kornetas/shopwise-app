@@ -1,3 +1,6 @@
+// Load enviroment variables from .env file
+require("dotenv").config();
+
 // Shopwise backend main entry point
 
 const express = require("express");
@@ -10,7 +13,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Start the server on port 5000
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
