@@ -9,6 +9,10 @@ const app = express();
 // allows receiving JSON in req.body
 app.use(express.json());
 
+// Middleware to read cookies from the request headers
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 // Connecting to MongoDB database
 const connectDB = require("./config/db");
 connectDB();
