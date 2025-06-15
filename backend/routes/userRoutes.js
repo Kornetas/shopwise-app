@@ -7,10 +7,12 @@ const register = require("../controllers/users/register");
 const login = require("../controllers/users/login");
 const auth = require("../middleware/auth");
 const getMe = require("../controllers/users/getMe");
+const logout = require("../controllers/users/logout");
 
 router.post("/register", register);
 router.post("/login", login);
 router.get("/me", auth, getMe);
+router.post("/logout", logout);
 
 // Get /api/users - return all users (for test only)
 const User = require("../models/User");
