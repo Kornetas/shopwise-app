@@ -6,6 +6,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+// Connecting to MongoDB database
+const connectDB = require("./config/db");
+connectDB();
+
 // Simple healhcheck endpoint for testing the server
 
 app.get("/api/health", (req, res) => {
