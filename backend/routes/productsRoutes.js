@@ -3,6 +3,8 @@ const router = express.Router();
 const getAllProducts = require("../controllers/products/getAllProducts");
 const createProduct = require("../controllers/products/createProduct");
 const getProductById = require("../controllers/products/getProductById");
+const updateProductById = require("../controllers/products/updateProductById");
+
 const auth = require("../middleware/auth");
 const isAdmin = require("../middleware/isAdmin");
 
@@ -14,5 +16,8 @@ router.get("/:id", getProductById);
 
 // POST /api/products – add new product (admin only)
 router.post("/", auth, isAdmin, createProduct);
+
+// PUT /api/products/:id – update product (admin only)
+router.put("/:id", auth, isAdmin, updateProductById);
 
 module.exports = router;
