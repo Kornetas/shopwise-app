@@ -6,6 +6,9 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+// allows receiving JSON in req.body
+app.use(express.json());
+
 // Connecting to MongoDB database
 const connectDB = require("./config/db");
 connectDB();
