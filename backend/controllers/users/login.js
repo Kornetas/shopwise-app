@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     }
 
     // Create JWT payload and sign token
-    const payload = { userId: user._id, role: user.role };
+    const payload = { userId: user._id, role: user.role, name: user.name };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });

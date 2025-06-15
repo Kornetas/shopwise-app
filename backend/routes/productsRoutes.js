@@ -5,6 +5,7 @@ const createProduct = require("../controllers/products/createProduct");
 const getProductById = require("../controllers/products/getProductById");
 const updateProductById = require("../controllers/products/updateProductById");
 const deleteProductById = require("../controllers/products/deleteProductById");
+const addReview = require("../controllers/products/addReview");
 
 const auth = require("../middleware/auth");
 const isAdmin = require("../middleware/isAdmin");
@@ -23,5 +24,8 @@ router.put("/:id", auth, isAdmin, updateProductById);
 
 // DELETE /api/products/:id – delete product (admin only)
 router.delete("/:id", auth, isAdmin, deleteProductById);
+
+// POST /api/products/:id/reviews – add review (auth required)
+router.post("/:id/reviews", auth, addReview);
 
 module.exports = router;
