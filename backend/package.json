@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "seed": "node seedProducts.js",
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",
