@@ -4,7 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const connectDB = require("./config/db");
+// const connectDB = require("./config/db");
 
 // Routes
 const userRoutes = require("./routes/userRoutes");
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Connecting to MongoDB database
-connectDB();
+// connectDB();
 
 // API routes
 app.use("/api/users", userRoutes);

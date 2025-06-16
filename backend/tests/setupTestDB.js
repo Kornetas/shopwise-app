@@ -13,10 +13,7 @@ module.exports = {
       const uri = mongoServer.getUri();
 
       // Connect Mongoose to the in-memory server
-      await mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(uri);
     });
 
     // Runs once after all tests are finished
