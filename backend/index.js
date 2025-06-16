@@ -1,5 +1,3 @@
-const productRoutes = require("./routes/productsRoutes");
-
 // Load enviroment variables from .env file
 require("dotenv").config();
 
@@ -23,7 +21,11 @@ connectDB();
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes);
 
+const productRoutes = require("./routes/productsRoutes");
 app.use("/api/products", productRoutes);
+
+const ordersRoutes = require("./routes/ordersRoutes");
+app.use("/api/orders", ordersRoutes);
 
 // Simple healhcheck endpoint for testing the server
 
