@@ -1,4 +1,5 @@
 import { fetchProducts } from "../services/productService";
+import Link from "next/link";
 
 export default async function HomePage() {
   let products = [];
@@ -15,7 +16,11 @@ export default async function HomePage() {
       <ul>
         {products.map((prod) => (
           <li key={prod._id}>
-            <strong>{prod.name}</strong> – {prod.price} zł
+            <Link href={`/products/${prod._id}`}>
+              <strong>{prod.name}</strong>
+            </Link>
+            {" – "}
+            {prod.price} zł
           </li>
         ))}
       </ul>
