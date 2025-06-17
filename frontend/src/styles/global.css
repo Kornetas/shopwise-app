@@ -1,0 +1,141 @@
+/* global.css - base reset and global styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colors and fonts */
+  --color-bg: #f9f9f9;
+  --color-text: #222;
+  --color-main: #2563eb;
+  --color-white: #fff;
+  --color-grey: #ececec;
+  --font-main: "Segoe UI", Arial, sans-serif;
+
+  /* Breakpoints (for reference/documentation only) */
+  --breakpoint-xs: 400px; /* very small smartphones */
+  --breakpoint-sm: 640px; /* small tablets, phones in landscape */
+  --breakpoint-md: 768px; /* typical tablets (e.g. iPad) */
+  --breakpoint-lg: 1024px; /* small laptops */
+  --breakpoint-xl: 1280px; /* large desktops */
+  --breakpoint-2xl: 1536px; /* wide monitors */
+  --breakpoint-4xl: 1920px; /* ultra-wide screens */
+}
+
+/* Ensure scrollbar doesn't shift layout */
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 16px;
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-main);
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: var(--color-main);
+  color: var(--color-white);
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #174ea6;
+}
+
+a:focus,
+button:focus {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+/* === Animations (keyframes) === */
+
+/* Fades in element from transparent to fully visible */
+@keyframes anim-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slides in element from bottom while fading in */
+@keyframes anim-slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Zooms in slightly with opacity */
+@keyframes anim-zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Bounces in from top with a slight delay */
+@keyframes anim-bounceIn {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
