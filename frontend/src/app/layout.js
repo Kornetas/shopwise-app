@@ -8,7 +8,24 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <nav>
+          {/* Placeholder navbar */}
+          <div style={{ padding: "1rem", borderBottom: "1px solid #49416D" }}>
+            <a href="/">Shopwise</a>
+          </div>
+        </nav>
+        <main>{children}</main>
+        <footer
+          style={{
+            marginTop: "2rem",
+            padding: "1rem",
+            borderTop: "1px solid #49416D",
+          }}
+        >
+          Shopwise &copy; {new Date().getFullYear()}
+        </footer>
+      </body>
     </html>
   );
 }
