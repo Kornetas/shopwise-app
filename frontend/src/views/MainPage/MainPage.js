@@ -13,6 +13,7 @@ export default async function MainPage() {
   return (
     <main className={styles.main}>
       <h1>Shopwise – Products</h1>
+
       <ProductsList products={products} />
     </main>
   );

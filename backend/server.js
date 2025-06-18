@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 // const connectDB = require("./config/db");
 
 // Routes
@@ -12,6 +13,12 @@ const productRoutes = require("./routes/productsRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json());

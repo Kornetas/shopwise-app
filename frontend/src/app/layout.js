@@ -1,5 +1,6 @@
 import "../styles/global.css";
 import ReduxProvider from "../store/ReduxProvider";
+import AuthInit from "../components/Init/AuthInit";
 
 export const metadata = {
   title: "Shopwise",
@@ -11,10 +12,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <ReduxProvider>
+          <AuthInit />
           <nav>
             {/* Placeholder navbar */}
             <div style={{ padding: "1rem", borderBottom: "1px solid #49416D" }}>
-              <a href="/">Shopwise</a> | <a href="/cart">Cart</a>
+              <a href="/">Shopwise</a> | <a href="/cart">Cart</a> |{" "}
+              <a href="/login">Log in</a> | <a href="/register">Register</a>
             </div>
           </nav>
           <main>{children}</main>
