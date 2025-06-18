@@ -10,7 +10,7 @@ export default function ProductDetails({ product }) {
           <strong>Brand:</strong> {product.brand}
         </p>
         <p className={styles.price}>
-          <strong>Price:</strong> {product.price} zł
+          <strong>Price:</strong> {product.price} €
         </p>
         <p className={styles.desc}>{product.description}</p>
         <AddToCartButton product={product} />

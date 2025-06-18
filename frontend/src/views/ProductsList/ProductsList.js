@@ -10,7 +10,7 @@ export default function ProductsList({ products }) {
             <strong>{prod.name}</strong>
           </Link>
           {" – "}
-          {prod.price} zł
+          {prod.price} €
         </li>
       ))}
     </ul>
