@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
           <nav>
             {/* Placeholder navbar */}
             <div style={{ padding: "1rem", borderBottom: "1px solid #49416D" }}>
-              <a href="/">Shopwise</a>
+              <a href="/">Shopwise</a> | <a href="/cart">Cart</a>
             </div>
           </nav>
           <main>{children}</main>
