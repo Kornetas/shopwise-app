@@ -42,6 +42,9 @@ export default function UserMenu() {
   // If user is logged in, show their name, link to profile, and log out button
   return (
     <div className={styles.menu}>
+      <Link href="/orders" className={styles.link}>
+        My Orders
+      </Link>
       <span className={styles.user}>👤 {user.name}</span>
       <Link href="/profile" className={styles.link}>
         My Account

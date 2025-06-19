@@ -1,0 +1,67 @@
+.container {
+  max-width: 640px;
+  margin: 2rem auto;
+  background: var(--color-white);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #0001;
+  padding: 2.2rem 1.5rem;
+  animation: anim-fadeIn 0.4s;
+}
+.title {
+  font-size: 2rem;
+  color: var(--color-main);
+  margin-bottom: 1rem;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.item {
+  border-bottom: 1px solid var(--color-grey);
+  padding: 1.1em 0;
+  margin-bottom: 0.5rem;
+}
+.orderId {
+  color: #355d8c;
+  font-weight: 600;
+  font-size: 1.09rem;
+  margin-right: 1.3em;
+}
+.date {
+  color: #666;
+  font-size: 0.98rem;
+  margin-right: 1.5em;
+}
+.count {
+  color: #3b7b2c;
+  margin-right: 1.3em;
+  font-weight: 500;
+}
+.total {
+  font-size: 1.09rem;
+  color: #192657;
+  font-weight: 600;
+}
+.itemsList {
+  margin: 0.6em 0 0 0;
+  padding: 0 0 0 1.3em;
+  color: #555;
+  font-size: 1.03rem;
+  list-style: disc inside;
+}
+.product {
+  margin-bottom: 0.2em;
+}
+.loading,
+.error,
+.empty {
+  text-align: center;
+  margin: 2.2em 0 1.5em 0;
+  font-size: 1.16rem;
+  color: #666;
+}
+.error {
+  color: #c00;
+  font-weight: bold;
+}
