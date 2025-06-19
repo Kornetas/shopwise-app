@@ -1,0 +1,73 @@
+.container {
+  max-width: 780px;
+  margin: 2rem auto;
+  background: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #0001;
+  padding: 2.2rem 1.7rem;
+  animation: anim-fadeIn 0.4s;
+}
+.title {
+  font-size: 2rem;
+  color: #c92c1f;
+  margin-bottom: 1.1rem;
+  letter-spacing: 1px;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.item {
+  border-bottom: 1px solid var(--color-grey);
+  padding: 1.1em 0;
+  margin-bottom: 0.5rem;
+}
+.orderId {
+  color: #355d8c;
+  font-weight: 600;
+  font-size: 1.09rem;
+  margin-right: 1.2em;
+}
+.date {
+  color: #666;
+  font-size: 0.99rem;
+  margin-right: 1.2em;
+}
+.count {
+  color: #3b7b2c;
+  margin-right: 1.1em;
+  font-weight: 500;
+}
+.total {
+  font-size: 1.09rem;
+  color: #192657;
+  font-weight: 600;
+  margin-right: 1.3em;
+}
+.detailsLink {
+  color: var(--color-main);
+  font-weight: 500;
+  margin-left: 1.3em;
+  text-decoration: underline;
+  font-size: 0.97rem;
+}
+.detailsLink:hover {
+  color: #193472;
+}
+.userInfo {
+  font-size: 0.98rem;
+  color: #555;
+  margin-top: 0.18em;
+}
+.loading,
+.error {
+  text-align: center;
+  margin: 2.2em 0 1.5em 0;
+  font-size: 1.16rem;
+  color: #666;
+}
+.error {
+  color: #c00;
+  font-weight: bold;
+}
