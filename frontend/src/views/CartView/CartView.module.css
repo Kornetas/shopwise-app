@@ -133,3 +133,19 @@
   margin: 3rem 0;
   color: #666;
 }
+
+.checkout {
+  background: #167d37;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.44em 1.2em;
+  font-size: 1rem;
+  margin-left: 0.7em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.checkout:hover {
+  background: #0a4721;
+}

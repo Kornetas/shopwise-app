@@ -7,12 +7,17 @@ import {
   clearCart,
 } from "../../features/cart/cartSlice";
 import styles from "./CartView.module.css";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // Component to display and manage shopping cart
 export default function CartView() {
+  const router = useRouter();
+  const user = useSelector((state) => state.user.user);
+
   // Get all items in the cart from Redux store
   const cartItems = useSelector((state) => state.cart.items);
+
   // Get dispatch function to send actions to Redux
   const dispatch = useDispatch();
 
@@ -81,6 +86,12 @@ export default function CartView() {
           <strong>Total:</strong>{" "}
           {total.toLocaleString("en-US", { minimumFractionDigits: 2 })} €
         </span>
+        <button
+          className={styles.checkout}
+          onClick={() => router.push(user ? "/checkout" : "/login")}
+        >
+          Checkout
+        </button>
         <button className={styles.clear} onClick={() => dispatch(clearCart())}>
           Clear cart
         </button>
