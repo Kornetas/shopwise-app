@@ -45,6 +45,9 @@ export default function UserMenu() {
       <Link href="/orders" className={styles.link}>
         My Orders
       </Link>
+      <Link href="/admin/products" className={styles.link}>
+        All Products
+      </Link>
       {/* Show link to Admin Panel only if user is admin */}
       {user.role === "admin" && (
         <Link href="/admin" className={styles.link}>
