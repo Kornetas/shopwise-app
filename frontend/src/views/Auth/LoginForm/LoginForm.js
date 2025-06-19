@@ -10,15 +10,21 @@ import styles from "./LoginForm.module.css";
 
 // Login form for user authentication
 export default function LoginForm() {
+  // State for input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Get loading, error, user from Redux store
   const { loading, error, user } = useSelector((state) => state.user);
+  // Get dispatch function from Redux
   const dispatch = useDispatch();
 
+  // Handle form submit
   async function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(authStart());
+    e.preventDefault(); // Stop default form action
+    dispatch(authStart()); // Set loading true, clear errors
+
     try {
+      // Send POST request to login API
       const res = await fetch(
         `${
           process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
@@ -26,15 +32,19 @@ export default function LoginForm() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "include", // If you use httpOnly cookie!
+          credentials: "include", // Needed if server uses httpOnly cookie
           body: JSON.stringify({ email, password }),
         }
       );
 
+      // If response is not ok, get error from server or set default
       if (!res.ok) throw new Error((await res.json()).error || "Login failed");
+
+      // Get user and token from response
       const data = await res.json();
       dispatch(authSuccess({ user: data.user || data, token: data.token }));
     } catch (err) {
+      // If error, save error in Redux
       dispatch(authFail(err.message));
     }
   }
@@ -63,7 +73,9 @@ export default function LoginForm() {
       <button className={styles.btn} disabled={loading}>
         {loading ? "Logging in..." : "Log in"}
       </button>
+      {/* Show error message if login failed */}
       {error && <div className={styles.error}>{error}</div>}
+      {/* Show success if user is logged in */}
       {user && <div className={styles.success}>Logged in as {user.name}</div>}
     </form>
   );

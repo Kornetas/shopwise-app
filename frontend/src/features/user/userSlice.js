@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Initial state for user (before login)
 const initialState = {
   user: null,
   token: null,
@@ -7,6 +8,7 @@ const initialState = {
   error: null,
 };
 
+// User slice: logic for login, register, logout, etc.
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -16,19 +18,19 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    // Success login/register
+    // Login/register success: save user data and token
     authSuccess(state, action) {
       state.loading = false;
-      state.user = action.payload.user;
-      state.token = action.payload.token || null;
+      state.user = action.payload.user; // Save user data
+      state.token = action.payload.token || null; // Save token if exists
       state.error = null;
     },
-    // Fail login/register
+    // Login/register failed: save error
     authFail(state, action) {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.payload; // Save error message
     },
-    // Logout
+    // Logout user: clear all user data
     logout(state) {
       state.user = null;
       state.token = null;
@@ -38,5 +40,8 @@ const userSlice = createSlice({
   },
 });
 
+// Export actions (functions to update the state)
 export const { authStart, authSuccess, authFail, logout } = userSlice.actions;
+
+// Export reducer (for Redux store)
 export default userSlice.reducer;

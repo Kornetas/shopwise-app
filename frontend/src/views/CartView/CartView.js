@@ -9,15 +9,20 @@ import {
 import styles from "./CartView.module.css";
 import Link from "next/link";
 
+// Component to display and manage shopping cart
 export default function CartView() {
+  // Get all items in the cart from Redux store
   const cartItems = useSelector((state) => state.cart.items);
+  // Get dispatch function to send actions to Redux
   const dispatch = useDispatch();
 
+  // Calculate total price of all items in cart
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
+  // If cart is empty, show message
   if (cartItems.length === 0) {
     return <div className={styles.empty}>Your cart is empty.</div>;
   }
@@ -28,9 +33,11 @@ export default function CartView() {
       <ul className={styles.list}>
         {cartItems.map((item) => (
           <li key={item.id} className={styles.item}>
+            {/* Link to product details page */}
             <Link href={`/products/${item.id}`} className={styles.productName}>
               {item.name}
             </Link>
+            {/* Quantity controls */}
             <div className={styles.qtyBox}>
               <button
                 className={styles.qtyBtn}
@@ -49,12 +56,14 @@ export default function CartView() {
                 +
               </button>
             </div>
+            {/* Show price for this item */}
             <span className={styles.price}>
               {(item.price * item.quantity).toLocaleString("en-US", {
                 minimumFractionDigits: 2,
               })}{" "}
               €
             </span>
+            {/* Remove button */}
             <button
               className={styles.remove}
               onClick={() => dispatch(removeFromCart(item.id))}
@@ -66,6 +75,7 @@ export default function CartView() {
           </li>
         ))}
       </ul>
+      {/* Cart summary: total price and clear cart */}
       <div className={styles.summary}>
         <span>
           <strong>Total:</strong>{" "}
