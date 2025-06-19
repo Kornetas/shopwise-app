@@ -1,6 +1,7 @@
 "use client";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/user/userSlice";
+import { clearCart } from "../../features/cart/cartSlice";
 import styles from "./UserMenu.module.css";
 import Link from "next/link";
 
@@ -10,6 +11,19 @@ export default function UserMenu() {
   const user = useSelector((state) => state.user.user);
   // Get dispatch function from Redux
   const dispatch = useDispatch();
+
+  // Handler for logging out the user
+  async function handleLogout() {
+    // 1. Tell the backend to remove session / clear cookie
+    await fetch("http://localhost:5000/api/users/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    // 2. Clear Redux state
+    dispatch(logout());
+    dispatch(clearCart());
+  }
 
   if (!user) {
     // If user not logged in, show links for login and register
@@ -32,7 +46,7 @@ export default function UserMenu() {
       <Link href="/profile" className={styles.link}>
         My Account
       </Link>
-      <button className={styles.btn} onClick={() => dispatch(logout())}>
+      <button className={styles.btn} onClick={handleLogout}>
         Log out
       </button>
     </div>
