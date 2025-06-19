@@ -65,3 +65,13 @@
   color: #c00;
   font-weight: bold;
 }
+.detailsLink {
+  color: var(--color-main);
+  font-weight: 500;
+  margin-left: 1.3em;
+  text-decoration: underline;
+  font-size: 0.97rem;
+}
+.detailsLink:hover {
+  color: #193472;
+}

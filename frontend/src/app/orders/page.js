@@ -1,4 +1,4 @@
-import UserOrdersView from "../../views/Orders/UserOrdersView";
+import UserOrdersView from "../../views/Orders/UserOrdersView/UserOrdersView";
 
 export default function OrdersPage() {
   return <UserOrdersView />;

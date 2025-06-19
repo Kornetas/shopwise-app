@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import styles from "./UserOrdersView.module.css";
 
 // My Orders view for logged-in users
@@ -71,6 +72,12 @@ export default function UserOrdersView() {
               {order.orderItems.map((item) => (
                 <li key={item.product} className={styles.product}>
                   {item.name} × {item.quantity}
+                  <Link
+                    href={`/orders/${order._id}`}
+                    className={styles.detailsLink}
+                  >
+                    Details
+                  </Link>
                 </li>
               ))}
             </ul>
