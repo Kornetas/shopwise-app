@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +14,8 @@ export default function LoginForm() {
   // State for input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Local error for validation
+  const [localError, setLocalError] = useState("");
   // Get loading, error, user from Redux store
   const { loading, error, user } = useSelector((state) => state.user);
   // Get dispatch function from Redux
@@ -21,6 +24,13 @@ export default function LoginForm() {
   // Handle form submit
   async function handleSubmit(e) {
     e.preventDefault(); // Stop default form action
+
+    // Simple client-side validation
+    if (!email || !password) {
+      setLocalError("Email and password are required");
+      return;
+    }
+    setLocalError(""); // Clear local error
     dispatch(authStart()); // Set loading true, clear errors
 
     try {
@@ -52,27 +62,40 @@ export default function LoginForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Log in</h2>
+
+      <label htmlFor="login-email" className={styles.label}>
+        Email
+      </label>
       <input
+        id="login-email"
         type="email"
         placeholder="Email"
-        required
         autoComplete="username"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className={styles.input}
       />
+
+      <label htmlFor="login-password" className={styles.label}>
+        Password
+      </label>
       <input
+        id="login-password"
         type="password"
         placeholder="Password"
-        required
         autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className={styles.input}
       />
+
       <button className={styles.btn} disabled={loading}>
         {loading ? "Logging in..." : "Log in"}
       </button>
+
+      {/* Local client-side error */}
+      {localError && <div className={styles.error}>{localError}</div>}
+
       {/* Show error message if login failed */}
       {error && <div className={styles.error}>{error}</div>}
       {/* Show success if user is logged in */}

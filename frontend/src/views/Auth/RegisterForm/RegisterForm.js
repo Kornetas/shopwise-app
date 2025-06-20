@@ -8,24 +8,30 @@ import {
 } from "../../../features/user/userSlice";
 import styles from "./RegisterForm.module.css";
 
-// Registration form for user signup
+// User registration form with client-side validation
 export default function RegisterForm() {
   // State for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // Get loading, error, user from Redux store
+  // Local validation error for UI only (not from backend)
+  const [localError, setLocalError] = useState("");
+  // Get Redux state for async status and errors
   const { loading, error, user } = useSelector((state) => state.user);
-  // Get dispatch function from Redux
   const dispatch = useDispatch();
 
-  // Handle form submission
+  // Handles register form submit
   async function handleSubmit(e) {
-    e.preventDefault(); // Prevent page reload
-    dispatch(authStart()); // Set loading true, clear errors
-
+    e.preventDefault(); // No page reload
+    // Basic client-side validation
+    if (!name || !email || !password) {
+      setLocalError("All fields are required");
+      return;
+    }
+    setLocalError(""); // Clear local error on submit
+    dispatch(authStart());
     try {
-      // Send POST request to register API
+      // Register user using API (use env or fallback)
       const res = await fetch(
         `${
           process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
@@ -36,16 +42,18 @@ export default function RegisterForm() {
           body: JSON.stringify({ name, email, password }),
         }
       );
-
-      // If registration failed, show error from server or default
-      if (!res.ok)
-        throw new Error((await res.json()).error || "Registration failed");
-
-      // Get user and token from response
+      if (!res.ok) {
+        // Try to extract server error
+        let data;
+        try {
+          data = await res.json();
+        } catch {}
+        throw new Error((data && data.error) || "Registration failed");
+      }
       const data = await res.json();
+      // Save user & token in Redux
       dispatch(authSuccess({ user: data.user || data, token: data.token }));
     } catch (err) {
-      // Save error in Redux
       dispatch(authFail(err.message));
     }
   }
@@ -53,37 +61,52 @@ export default function RegisterForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Register</h2>
+      {/* Labels for accessibility (linked by htmlFor/id) */}
+      <label htmlFor="register-name" className={styles.label}>
+        Name
+      </label>
       <input
+        id="register-name"
         type="text"
         placeholder="Name"
-        required
         autoComplete="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         className={styles.input}
       />
+
+      <label htmlFor="register-email" className={styles.label}>
+        Email
+      </label>
       <input
+        id="register-email"
         type="email"
         placeholder="Email"
-        required
         autoComplete="username"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className={styles.input}
       />
+
+      <label htmlFor="register-password" className={styles.label}>
+        Password
+      </label>
       <input
+        id="register-password"
         type="password"
         placeholder="Password"
-        required
         autoComplete="new-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className={styles.input}
       />
+
       <button className={styles.btn} disabled={loading}>
         {loading ? "Registering..." : "Register"}
       </button>
-      {/* Show error if registration failed */}
+      {/* Local error (client-side) */}
+      {localError && <div className={styles.error}>{localError}</div>}
+      {/* Server error */}
       {error && <div className={styles.error}>{error}</div>}
       {/* Show welcome message if registration successful */}
       {user && <div className={styles.success}>Welcome, {user.name}!</div>}
