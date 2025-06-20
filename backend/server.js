@@ -5,6 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const compression = require("compression");
 // const connectDB = require("./config/db");
 
 // Routes
@@ -14,6 +15,9 @@ const ordersRoutes = require("./routes/ordersRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 
 const app = express();
+
+app.use(compression());
+
 app.use(
   cors({
     origin: "http://localhost:3000",
