@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./AdminProductForm.module.css";
+import { getApiEndpoint, getImageUrl } from "../../../utils/api";
 
-// ProductForm for create or edit product (admin only)
+// ProductForm for creating or editing a product (admin only)
 export default function ProductForm({ mode = "add", productId }) {
+  // Product state fields
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -16,21 +18,19 @@ export default function ProductForm({ mode = "add", productId }) {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(mode === "edit");
+  const [uploading, setUploading] = useState(false); // Image uploading state
   const router = useRouter();
 
-  // If edit mode, fetch product data
+  // If in edit mode, fetch product data from API
   useEffect(() => {
     if (mode === "edit" && productId) {
       async function fetchProduct() {
         setLoading(true);
         setError("");
         try {
-          const res = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
-            }/products/${productId}`,
-            { credentials: "include" }
-          );
+          const res = await fetch(getApiEndpoint(`/products/${productId}`), {
+            credentials: "include",
+          });
           if (!res.ok) throw new Error("Failed to fetch product");
           const data = await res.json();
           setProduct({
@@ -51,13 +51,36 @@ export default function ProductForm({ mode = "add", productId }) {
     }
   }, [mode, productId]);
 
-  // Handle input change
+  // Handle input changes
   function handleChange(e) {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));
   }
 
-  // Submit form (add or edit)
+  // Handle image upload to backend
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await fetch(getApiEndpoint("/upload"), {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      setProduct((prev) => ({ ...prev, image: data.imageUrl }));
+    } catch (err) {
+      setError("Image upload failed: " + err.message);
+    }
+    setUploading(false);
+  }
+
+  // Handle form submit: send new/updated product to API
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -69,12 +92,8 @@ export default function ProductForm({ mode = "add", productId }) {
       }
       const url =
         mode === "add"
-          ? `${
-              process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
-            }/products`
-          : `${
-              process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
-            }/products/${productId}`;
+          ? getApiEndpoint("/products")
+          : getApiEndpoint(`/products/${productId}`);
       const method = mode === "add" ? "POST" : "PUT";
       const res = await fetch(url, {
         method,
@@ -88,15 +107,17 @@ export default function ProductForm({ mode = "add", productId }) {
       });
       if (!res.ok)
         throw new Error((await res.json()).error || "Error saving product");
-      // After success: go back to product list
+      // Go back to product list after successful submit
       router.push("/admin/products");
     } catch (err) {
       setError(err.message);
     }
   }
 
+  // Show loading message while fetching
   if (loading) return <div className={styles.loading}>Loading...</div>;
 
+  // Render form for adding or editing product
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>
@@ -104,6 +125,7 @@ export default function ProductForm({ mode = "add", productId }) {
       </h1>
       {error && <div className={styles.error}>{error}</div>}
       <form className={styles.form} onSubmit={handleSubmit}>
+        {/* Product name */}
         <label>
           Name:
           <input
@@ -114,6 +136,7 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Product description */}
         <label>
           Description:
           <textarea
@@ -124,6 +147,7 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Product price */}
         <label>
           Price:
           <input
@@ -136,6 +160,7 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Product category */}
         <label>
           Category:
           <input
@@ -146,6 +171,7 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Product brand */}
         <label>
           Brand:
           <input
@@ -156,15 +182,26 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Image upload */}
         <label>
-          Image URL:
+          Image:
           <input
-            name="image"
-            value={product.image}
-            onChange={handleChange}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
             className={styles.input}
+            disabled={uploading}
           />
+          {uploading && <span className={styles.uploading}>Uploading...</span>}
+          {product.image && (
+            <div className={styles.preview}>
+              {/* Always serve image directly from backend/static folder */}
+              <img src={getImageUrl(product.image)} alt="Preview" width={80} />
+              <span>{product.image}</span>
+            </div>
+          )}
         </label>
+        {/* Product stock count */}
         <label>
           Count In Stock:
           <input
@@ -177,6 +214,7 @@ export default function ProductForm({ mode = "add", productId }) {
             required
           />
         </label>
+        {/* Submit button */}
         <button className={styles.submitBtn} type="submit">
           {mode === "add" ? "Add Product" : "Update Product"}
         </button>

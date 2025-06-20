@@ -55,3 +55,23 @@
 .error {
   color: #c00;
 }
+
+.preview {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 0.95rem;
+  color: #666;
+}
+.preview img {
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  max-width: 80px;
+  max-height: 80px;
+}
+.uploading {
+  color: #2563eb;
+  margin-left: 1em;
+  font-size: 0.97rem;
+}
