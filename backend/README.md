@@ -91,7 +91,7 @@ Before running the backend, copy `.env.example` to `.env` and fill in your own s
 ```bash
 npm install
 npm run dev                        # Start dev server (nodemon)
-npm run seed                       # (Optional) Seed products for frontend testing
+npm run seed:test                  # Runs a special script that resets DB, adds admin user & products
 npm test                           # Run all Jest/Supertest tests
 npx jest tests/user/login.test.js  # Run a single test file:
 npm run test:watch                 # Run tests in watch mode:

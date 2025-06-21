@@ -13,7 +13,7 @@ describe("Cart actions", () => {
     cy.contains("button", /add to cart/i).click();
 
     // Go to the cart page (find by link or use navbar)
-    cy.get('[data-cy="cart-link"]').click(); // lub kliknij w navbar, jeśli masz data-cy na linku
+    cy.get('[data-cy="cart-link"]').click(); 
 
     // Make sure the cart is displayed
     cy.contains(/your cart/i).should("be.visible");

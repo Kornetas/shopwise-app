@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shopwise Frontend 🛍️
 
-## Getting Started
+Frontend of the **Shopwise** e-commerce application built using **Next.js, React, Redux Toolkit, CSS Modules, Jest, React Testing Library, and Cypress**.
 
-First, run the development server:
+## 🚀 Main Features
+
+- Responsive and interactive UI with React 19
+- State management with Redux Toolkit
+- Modular styling with CSS Modules
+- Robust routing with Next.js App Router
+- Unit testing with Jest and React Testing Library
+- End-to-end testing with Cypress
+
+## 🏁 How to Run the Frontend
+
+Clone the repository and navigate to the frontend folder:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd frontend
+npm install
+npm run dev      # starts the dev server (http://localhost:3000)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Note:** Backend must run separately on port `5000`. If you don't have it, clone and follow its README.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Unit Tests (Jest + React Testing Library)
 
-## Learn More
+```bash
+npm test              # run all unit tests
+npm run test:watch    # watch mode for tests
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Tests include:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Navbar, AddToCartButton
+- Cart View
+- Login/Register Forms
+- Products List
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Testing tools used:
 
-## Deploy on Vercel
+- `@testing-library/react`
+- `@testing-library/jest-dom`
+- Mocked Redux store (`renderWithStore`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚦 E2E Tests (Cypress)
+
+Cypress is pre-installed and configured.
+
+### Available tests:
+
+- Authentication: Registration, Login
+- Cart: Adding items, Checkout
+- Admin panel: Products, Orders
+
+### Running Cypress:
+
+```bash
+npx cypress open
+# or
+npx cypress run
+```
+
+### Note:
+
+- Recommended to reset and seed the database (`npm run seed:test` in backend) before E2E tests.
+- Tests assume fresh admin/user accounts and empty carts.
+
+---
+
+## 💡 Useful Commands
+
+```bash
+npm run dev        # Start Next.js on localhost:3000
+npm run build      # Build for production
+npm start          # Run the built version
+npm test           # Run unit tests
+npx cypress open   # Run E2E tests (GUI)
+```
+
+Happy coding! 🚀✨

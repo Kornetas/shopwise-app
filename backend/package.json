@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "seed": "node seedProducts.js",
+    "seed:test": "node ./scripts/seedTestDb.js",
     "test": "jest --verbose",
     "test:watch": "jest --watchAll --verbose"
   },
@@ -16,6 +16,7 @@
   "type": "commonjs",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
