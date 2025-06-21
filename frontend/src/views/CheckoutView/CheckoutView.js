@@ -5,72 +5,67 @@ import styles from "./CheckoutView.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// CheckoutView - page for making an order from cart items
+// Checkout page for placing an order from cart items
 export default function CheckoutView() {
-  // Get all cart items from Redux store
+  // Get all items from the cart (Redux state)
   const cartItems = useSelector((state) => state.cart.items);
-
-  // Get user data from Redux store
+  // Get the logged in user (Redux state)
   const user = useSelector((state) => state.user.user);
-
-  // Get dispatch function to send Redux actions
+  // Redux dispatch function
   const dispatch = useDispatch();
-
-  // Get router object for navigation
+  // Router for navigation
   const router = useRouter();
 
-  // Address input for shipping
+  // State for shipping address input
   const [address, setAddress] = useState("");
-
-  // State for loading (during order submit)
+  // State for loading indicator
   const [submitting, setSubmitting] = useState(false);
-
-  // State for showing order success message
+  // State to show order success message
   const [orderSuccess, setOrderSuccess] = useState(false);
-
-  // State for error message
+  // State to show any error
   const [error, setError] = useState("");
 
-  // Calculate total price for all items in cart
+  // Calculate the total order price
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  // If cart is empty, show message and link to shop
+  // If cart is empty, show a message and a link to go shopping
   if (cartItems.length === 0) {
     return (
-      <div className={styles.empty}>
-        Cart is empty. <a href="/">Go shopping</a>
+      <div className={styles.empty} data-cy="checkout-cart-empty">
+        Cart is empty.{" "}
+        <a href="/" data-cy="checkout-go-shopping">
+          Go shopping
+        </a>
       </div>
     );
   }
 
-  // If user not logged in, redirect to login page
+  // If user is not logged in, redirect to login page
   if (!user) {
     router.push("/login");
     return null;
   }
 
-  // Function to handle order submission
+  // Handle order submission
   async function handleOrder(e) {
-    e.preventDefault(); // Prevent default form submit
+    e.preventDefault(); // Prevent page reload
     setSubmitting(true);
     setError("");
     try {
-      // Calculate prices
+      // Prepare order items and prices
       const itemsPrice = cartItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
       );
-      const shippingPrice = 0; // Static value for now
-      const taxPrice = 0; // Static value for now
+      const shippingPrice = 0;
+      const taxPrice = 0;
       const totalPrice = itemsPrice + shippingPrice + taxPrice;
-
-      // Prepare order items for backend
       const orderItems = cartItems.map((item) => ({
         ...item,
-        product: item.id, // For backend API
+        product: item.id,
       }));
 
       // Send order to backend API
@@ -93,38 +88,44 @@ export default function CheckoutView() {
           }),
         }
       );
-
-      // If order failed, show error
       if (!res.ok) throw new Error((await res.json()).error || "Order failed");
-
-      // If success, show success message and clear cart
+      // On success: show message and clear cart
       setOrderSuccess(true);
       dispatch(clearCart());
     } catch (err) {
-      // If error, show error message
       setError(err.message);
     }
     setSubmitting(false);
   }
 
-  // If order was successful, show message
+  // Show order success message and link to the shop
   if (orderSuccess)
     return (
-      <div className={styles.success}>
+      <div className={styles.success} data-cy="checkout-success-msg">
+        {/* Success message after order placed */}
         ✅ Order placed successfully!
         <br />
-        <a href="/">Back to shop</a>
+        <a href="/" data-cy="checkout-back-to-shop">
+          Back to shop
+        </a>
       </div>
     );
 
   // Main checkout view
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>Checkout</h1>
-      {/* Show list of cart items */}
+      {/* Checkout title */}
+      <h1 className={styles.title} data-cy="checkout-title">
+        Checkout
+      </h1>
+      {/* List all items in the cart */}
       <ul className={styles.list}>
         {cartItems.map((item) => (
-          <li key={item.id} className={styles.item}>
+          <li
+            key={item.id}
+            className={styles.item}
+            data-cy="checkout-cart-item"
+          >
             <span>
               {item.name} x {item.quantity}
             </span>
@@ -137,10 +138,10 @@ export default function CheckoutView() {
           </li>
         ))}
       </ul>
-      {/* Order form */}
+      {/* Checkout form */}
       <form className={styles.form} onSubmit={handleOrder}>
-        {/* Show total price */}
-        <div className={styles.total}>
+        {/* Total price */}
+        <div className={styles.total} data-cy="checkout-total">
           <strong>
             Total:{" "}
             {total.toLocaleString("en-US", {
@@ -149,7 +150,7 @@ export default function CheckoutView() {
             })}
           </strong>
         </div>
-        {/* Shipping address input */}
+        {/* Shipping address input with data-cy */}
         <input
           type="text"
           placeholder="Shipping address"
@@ -157,9 +158,14 @@ export default function CheckoutView() {
           required
           className={styles.input}
           onChange={(e) => setAddress(e.target.value)}
+          data-cy="checkout-address-input"
         />
-        {/* Order submit button */}
-        <button className={styles.btn} disabled={submitting}>
+        {/* Place order button with data-cy */}
+        <button
+          className={styles.btn}
+          disabled={submitting}
+          data-cy="checkout-place-order-btn"
+        >
           {submitting ? "Placing order..." : "Place order"}
         </button>
         {/* Show error if exists */}

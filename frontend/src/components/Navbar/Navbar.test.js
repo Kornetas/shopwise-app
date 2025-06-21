@@ -2,7 +2,7 @@ import { renderWithStore } from "../../test-utils/renderWithStore";
 import Navbar from "./Navbar";
 import { screen } from "@testing-library/react";
 
-// Mock next/navigation (jeśli Twój Navbar korzysta np. z useRouter)
+// Mock next/navigation
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),

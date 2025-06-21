@@ -61,7 +61,6 @@ export default function RegisterForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Register</h2>
-      {/* Labels for accessibility (linked by htmlFor/id) */}
       <label htmlFor="register-name" className={styles.label}>
         Name
       </label>
@@ -73,6 +72,7 @@ export default function RegisterForm() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         className={styles.input}
+        data-cy="register-name"
       />
 
       <label htmlFor="register-email" className={styles.label}>
@@ -86,6 +86,7 @@ export default function RegisterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className={styles.input}
+        data-cy="register-email"
       />
 
       <label htmlFor="register-password" className={styles.label}>
@@ -99,17 +100,20 @@ export default function RegisterForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className={styles.input}
+        data-cy="register-password"
       />
 
-      <button className={styles.btn} disabled={loading}>
+      <button className={styles.btn} disabled={loading} data-cy="register-btn">
         {loading ? "Registering..." : "Register"}
       </button>
-      {/* Local error (client-side) */}
+
       {localError && <div className={styles.error}>{localError}</div>}
-      {/* Server error */}
       {error && <div className={styles.error}>{error}</div>}
-      {/* Show welcome message if registration successful */}
-      {user && <div className={styles.success}>Welcome, {user.name}!</div>}
+      {user && (
+        <div className={styles.success} data-cy="register-success-msg">
+          Welcome, {user.name}!
+        </div>
+      )}
     </form>
   );
 }

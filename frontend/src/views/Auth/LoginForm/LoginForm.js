@@ -74,6 +74,7 @@ export default function LoginForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className={styles.input}
+        data-cy="login-email"
       />
 
       <label htmlFor="login-password" className={styles.label}>
@@ -87,9 +88,10 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className={styles.input}
+        data-cy="login-password"
       />
 
-      <button className={styles.btn} disabled={loading}>
+      <button className={styles.btn} disabled={loading} data-cy="login-btn">
         {loading ? "Logging in..." : "Log in"}
       </button>
 
@@ -99,7 +101,11 @@ export default function LoginForm() {
       {/* Show error message if login failed */}
       {error && <div className={styles.error}>{error}</div>}
       {/* Show success if user is logged in */}
-      {user && <div className={styles.success}>Logged in as {user.name}</div>}
+      {user && (
+        <div className={styles.success} data-cy="login-success-msg">
+          Logged in as {user.name}
+        </div>
+      )}
     </form>
   );
 }
